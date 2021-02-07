@@ -1,0 +1,12 @@
+{
+  "name": "HearHere",
+  "displayName": "HearHere",
+  "expo": {
+    "name": "HearHere",
+    "slug": "HearHere",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
