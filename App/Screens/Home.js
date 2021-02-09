@@ -10,7 +10,7 @@ export default class Home extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>
-          Home
+          Hear Here!
         </Text>
       </View>
     );
@@ -25,7 +25,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   title: {
-    fontSize: 20,
+    fontSize: 18,
+    textAlign: 'center',
+    margin: 10,
+    fontWeight: 'bold',
+  },
+  subtitle: {
+    fontSize: 18,
     textAlign: 'center',
     margin: 10,
   }

@@ -10,7 +10,6 @@ import Careers from './Screens/Careers.js'
 
 const Tab = createMaterialBottomTabNavigator();
 
-
 function Navigator() {
     return (
         <NavigationContainer>
