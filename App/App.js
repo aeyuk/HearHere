@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
-import TabNavigator from './router';
-import { registerRootComponent } from 'expo';
+import Navigator from './router';
 
 export default class App extends Component {
     render() {
         return (
-            <TabNavigator />
+            <Navigator />
         );
     };
   }

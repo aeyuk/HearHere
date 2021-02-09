@@ -1,35 +1,63 @@
-import React, { Component } from 'react';
-import { Dimensions, Platform } from 'react-native';
-import { createAppContainer } from 'react-navigation';
-import { createBottomTabNavigator } from 'react-navigation-tabs'
+import React from 'react';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
 import { Icon } from 'react-native-elements';
 
-import Game from '../App/Screens/Game.js';
-import Listen from '../App/Screens/Listen.js';
-import Home from '../App/Screens/Home.js';
+import Game from './Screens/Game.js';
+import Listen from './Screens/Listen.js';
+import Home from './Screens/Home.js';
+import Careers from './Screens/Careers.js'
 
-const RootStack = createBottomTabNavigator({
-  Home: {
-    screen: Home,
-    navigationOptions: {
-      tabBarIcon: ({ tintColor }) => <Icon name="home" type="ionicon" size={28} color='#3D64EE' />
-    }
-  },
-  Listen: {
-    screen: Listen,
-    navigationOptions: {
-      tabBarIcon: ({ tintColor }) => <Icon name="ear-outline" type="ionicon" size={28} color='#38B6E1' />
-    }
-  },
-  Game: {
-    screen: Game,
-    navigationOptions: {
-      tabBarIcon: ({ tintColor }) => <Icon name="game-controller-outline" type="ionicon" size={28} color='#A8E440' />
-    }
-  },
-});
-
-const TabNavigator = createAppContainer(RootStack)
+const Tab = createMaterialBottomTabNavigator();
 
 
-export default TabNavigator;
+function Navigator() {
+    return (
+        <NavigationContainer>
+            <Tab.Navigator
+                initialRouteName="Home"
+                activeColor="white"
+                shifting="true"
+            >
+                <Tab.Screen 
+                    name="Home"
+                    component={Home}
+                    options={{
+                        tabBarLabel: "Home",
+                        tabBarIcon: () => <Icon name="home-outline" type="ionicon" size={24} color='#FFFFFF' />,
+                        tabBarColor: '#3D64EE'
+                    }}
+                />
+                <Tab.Screen 
+                    name="Listen" 
+                    component={Listen}
+                    options={{
+                        tabBarLabel: "Listen",
+                        tabBarIcon: () => <Icon name="ear-outline" type="ionicon" size={24} color='#FFFFFF' />,
+                        tabBarColor: '#38B6E1'
+                    }}
+                />
+                <Tab.Screen 
+                    name="Game" 
+                    component={Game}
+                    options={{
+                        tabBarLabel: "Game",
+                        tabBarIcon: () => <Icon name="game-controller-outline" type="ionicon" size={24} color='#FFFFFF' />,
+                        tabBarColor: '#75BA03'
+                    }}
+                />                
+                <Tab.Screen 
+                    name="Careers" 
+                    component={Careers}
+                    options={{
+                        tabBarLabel: "Careers",
+                        tabBarIcon: () => <Icon name="briefcase-outline" type="ionicon" size={24} color='#FFFFFF' />,
+                        tabBarColor: '#FF4C00'
+                    }}
+                />            
+            </Tab.Navigator>
+        </NavigationContainer>
+    );
+}
+
+export default Navigator;
