@@ -1,5 +1,10 @@
 # HearHere
 
+## PLEASE:
+* WORK ON YOUR OWN BRANCH AND TELL PEOPLE BEFORE YOU MERGE
+* MAKE YOUR BRANCH YOUR NAME
+* KEEP COMMIT NAMING CONVENTIONS (Follow the pattern of: "This commit will..." \[Your actual commit]
+
 ## Brief Tech Details
 * Built with react-native
 * You'll need to have Node and npm installed
