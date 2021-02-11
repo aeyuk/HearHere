@@ -5,20 +5,23 @@ import {
   View
 } from 'react-native';
 
+import SoundRecorder from '../Components/SoundRecorder.js'
+
 export default class Listen extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.title}>
-          It's important to protect your ears!
-        </Text>
-        <Text style={styles.subtitle}>
-          Listening to loud sounds for too long can damage your ears.
-        </Text>
-        <Text style={styles.title}>
-          Record a sound and see how loud it is:
-        </Text>
-      </View>
+      // <View style={styles.container}>
+      //   <Text style={styles.title}>
+      //     It's important to protect your ears!
+      //   </Text>
+      //   <Text style={styles.subtitle}>
+      //     Listening to loud sounds for too long can damage your ears.
+      //   </Text>
+      //   <Text style={styles.title}>
+      //     Record a sound and see how loud it is:
+      //   </Text>
+      // </View>
+      <SoundRecorder />
     );
   }
 }
