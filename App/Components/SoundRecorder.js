@@ -19,11 +19,11 @@ class SoundRecorder extends Component {
     state = {
       currentTime: 0.0,
       recording: false,
-      paused: false,
       stoppedRecording: false,
       finished: false,
       audioPath: AudioUtils.DocumentDirectoryPath + '/test.aac',
       hasPermission: undefined,
+      decibelLevel: 0.0,
     };
 
     prepareRecordingPath(audioPath){
@@ -32,7 +32,8 @@ class SoundRecorder extends Component {
         Channels: 1,
         AudioQuality: "Low",
         AudioEncoding: "aac",
-        AudioEncodingBitRate: 32000
+        AudioEncodingBitRate: 32000,
+        MeteringEnabled: "true"
       });
     }
 
@@ -45,6 +46,7 @@ class SoundRecorder extends Component {
         this.prepareRecordingPath(this.state.audioPath);
 
         AudioRecorder.onProgress = (data) => {
+          this.setState({decibelLevel: Math.floor(data.currentMetering) + 160});
           this.setState({currentTime: Math.floor(data.currentTime)});
         };
 
@@ -58,56 +60,15 @@ class SoundRecorder extends Component {
     }
 
     _renderButton(title, onPress, active) {
-      var style = (active) ? styles.activeButtonText : styles.buttonText;
+      var style = (active) ? styles.activeButton : styles.button;
+
+      var icon = (title === "RECORD") ? "mic-outline" : "pause-outline";
 
       return (
-        <TouchableHighlight style={styles.button} onPress={onPress}>
-          <Text style={style}>
-            {title}
-          </Text>
-          {/* <Icon name="game-controller-outline" type="ionicon" size={24} color='#FFFFFF' />, */}
+        <TouchableHighlight onPress={onPress} underlayColor="false">
+          <Icon name={icon} type="ionicon" size={35} color="white" style={style}/>
         </TouchableHighlight>
       );
-    }
-
-    _renderPauseButton(onPress, active) {
-      var style = (active) ? styles.activeButtonText : styles.buttonText;
-      var title = this.state.paused ? "RESUME" : "PAUSE";
-      return (
-        <TouchableHighlight style={styles.button} onPress={onPress}>
-          <Text style={style}>
-            {title}
-          </Text>
-        </TouchableHighlight>
-      );
-    }
-
-    async _pause() {
-      if (!this.state.recording) {
-        console.warn('Can\'t pause, not recording!');
-        return;
-      }
-
-      try {
-        const filePath = await AudioRecorder.pauseRecording();
-        this.setState({paused: true});
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    async _resume() {
-      if (!this.state.paused) {
-        console.warn('Can\'t resume, not paused!');
-        return;
-      }
-
-      try {
-        await AudioRecorder.resumeRecording();
-        this.setState({paused: false});
-      } catch (error) {
-        console.error(error);
-      }
     }
 
     async _stop() {
@@ -116,7 +77,6 @@ class SoundRecorder extends Component {
         return;
       }
 
-      this.setState({stoppedRecording: true, recording: false, paused: false});
       this.setState({stoppedRecording: true, recording: false});
 
       try {
@@ -129,32 +89,6 @@ class SoundRecorder extends Component {
       } catch (error) {
         console.error(error);
       }
-    }
-
-    async _play() {
-      if (this.state.recording) {
-        await this._stop();
-      }
-
-      // These timeouts are a hacky workaround for some issues with react-native-sound.
-      // See https://github.com/zmxv/react-native-sound/issues/89.
-      setTimeout(() => {
-        var sound = new Sound(this.state.audioPath, '', (error) => {
-          if (error) {
-            console.log('failed to load the sound', error);
-          }
-        });
-
-        setTimeout(() => {
-          sound.play((success) => {
-            if (success) {
-              console.log('successfully finished playing');
-            } else {
-              console.log('playback failed due to audio decoding errors');
-            }
-          });
-        }, 100);
-      }, 100);
     }
 
     async _record() {
@@ -172,7 +106,7 @@ class SoundRecorder extends Component {
         this.prepareRecordingPath(this.state.audioPath);
       }
 
-      this.setState({recording: true, paused: false});
+      this.setState({recording: true});
 
       try {
         const filePath = await AudioRecorder.startRecording();
@@ -184,6 +118,7 @@ class SoundRecorder extends Component {
     _finishRecording(didSucceed, filePath, fileSize) {
       this.setState({ finished: didSucceed });
       console.log(`Finished recording of duration ${this.state.currentTime} seconds at path: ${filePath} and size of ${fileSize || 0} bytes`);
+      console.log(`Decibel level: ${this.state.decibelLevel}`);
     }
 
     render() {
@@ -191,11 +126,9 @@ class SoundRecorder extends Component {
       return (
         <View style={styles.container}>
           <View style={styles.controls}>
+            <Text style={styles.progressText}>{this.state.decibelLevel} dBs</Text>
             {this._renderButton("RECORD", () => {this._record()}, this.state.recording )}
-            {this._renderButton("PLAY", () => {this._play()} )}
             {this._renderButton("STOP", () => {this._stop()} )}
-            {this._renderButton("PAUSE", () => {this._pause()} )}
-            {this._renderPauseButton(() => {this.state.paused ? this._resume() : this._pause()})}
             <Text style={styles.progressText}>{this.state.currentTime}s</Text>
           </View>
         </View>
@@ -206,34 +139,33 @@ class SoundRecorder extends Component {
   var styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: "#2b608a",
+      backgroundColor: "#FFFFFF",
     },
     controls: {
       justifyContent: 'center',
       alignItems: 'center',
       flex: 1,
-      // position: 'relative',
-      // top: '30%'
     },
     progressText: {
-      paddingTop: 50,
+      padding: 45,
       fontSize: 50,
-      color: "#fff"
+      color: "#000"
+    },
+    activeButton: {
+      paddingTop: 20,
+      marginBottom: 20,
+      width: 80,
+      height: 80,
+      borderRadius: 80/2,
+      backgroundColor: "red"
     },
     button: {
-      padding: 20
-    },
-    disabledButtonText: {
-      color: '#eee'
-    },
-    buttonText: {
-      fontSize: 20,
-      color: "#fff"
-    },
-    activeButtonText: {
-      fontSize: 20,
-      color: "#B81F00"
-    }
+      paddingTop: 20,
+      marginBottom: 20,
+      width: 80,
+      height: 80,
+      borderRadius: 80/2,
+      backgroundColor: "#38B6E1"    },
 
   });
 
