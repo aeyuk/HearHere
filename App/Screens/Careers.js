@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import CardModal from '../Components/CareerCardModal/CardModal.js'
+
 import {
   StyleSheet,
   Text,
@@ -10,12 +12,17 @@ export default class Careers extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>
-          There are so many jobs for people interested in hearing loss!
+          Careers with Ears!
         </Text>
         <Text style={styles.subtitle}>
+          There are so many jobs for people interested in hearing loss.
           Click on each person to learn what they do:
         </Text>
+        <View>
+          <CardModal />
+        </View>
       </View>
+      // <CardModal/>
     );
   }
 }
@@ -39,7 +46,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: 'center',
     margin: 10,
-    position: 'relative',
+    // position: 'relative',
     top: '-30%'
   }
 });

@@ -1,0 +1,1 @@
+export const FILLER = require('./Filler_Image.png');

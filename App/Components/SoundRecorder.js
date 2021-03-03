@@ -23,7 +23,7 @@ class SoundRecorder extends Component {
       finished: false,
       audioPath: AudioUtils.DocumentDirectoryPath + '/test.aac',
       hasPermission: undefined,
-      decibelLevel: 0.0,
+      decibels: 0.0,
     };
 
     prepareRecordingPath(audioPath){
@@ -46,8 +46,9 @@ class SoundRecorder extends Component {
         this.prepareRecordingPath(this.state.audioPath);
 
         AudioRecorder.onProgress = (data) => {
-          this.setState({decibelLevel: Math.floor(data.currentMetering) + 160});
+          this.setState({decibels: Math.floor(data.currentMetering)/20});
           this.setState({currentTime: Math.floor(data.currentTime)});
+          // console.log(Math.floor(data.currentMetering) + 160, Math.floor(data.currentPeakMetering) + 160);
         };
 
         AudioRecorder.onFinished = (data) => {
@@ -118,7 +119,7 @@ class SoundRecorder extends Component {
     _finishRecording(didSucceed, filePath, fileSize) {
       this.setState({ finished: didSucceed });
       console.log(`Finished recording of duration ${this.state.currentTime} seconds at path: ${filePath} and size of ${fileSize || 0} bytes`);
-      console.log(`Decibel level: ${this.state.decibelLevel}`);
+      // console.log(`Decibel level: ${this.state.decibels}`);
     }
 
     render() {
@@ -126,7 +127,7 @@ class SoundRecorder extends Component {
       return (
         <View style={styles.container}>
           <View style={styles.controls}>
-            <Text style={styles.progressText}>{this.state.decibelLevel} dBs</Text>
+            <Text style={styles.progressText}>{this.state.decibels} dBs</Text>
             {this._renderButton("RECORD", () => {this._record()}, this.state.recording )}
             {this._renderButton("STOP", () => {this._stop()} )}
             <Text style={styles.progressText}>{this.state.currentTime}s</Text>

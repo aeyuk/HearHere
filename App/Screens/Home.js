@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
-  View
+  View,
+  Image
 } from 'react-native';
 
 export default class Home extends Component {
@@ -12,6 +13,12 @@ export default class Home extends Component {
         <Text style={styles.title}>
           Hear Here!
         </Text>
+        <Image
+          style={{
+            width: "100%",
+            height: "50%"
+          }}
+          source={require('../Assets/Images/Filler_Image.png')}/>
       </View>
     );
   }
