@@ -2,39 +2,54 @@ import React from 'react';
 import { Dimensions } from 'react-native';
 import Card from './Card';
 
-import { FILLER } from '../../Assets/Images/Images.js'
+import {  FILLER, 
+          SOUND_ENGINEER, 
+          SIGN_LANGUAGE_INTERPETER, 
+          ENT,
+          AUDIOLOGIST,
+          SLP
+        } from '../../Assets/Images/Images.js'
 
 
 export default [
   {
     renderItem: ({ item }) => <Card
-        title="Sound Engineer"
-        subtitle="Insert subtitle here"
-        image={FILLER}
-    />
+      title="Sound Engineer"
+      subtitle="Tap to learn more"
+      image={SOUND_ENGINEER}
+    />,
+    description: "description1",
   },
   {
     renderItem: ({ item }) => <Card
-        title="Sign Language Interpreter"
-        subtitle="Insert subtitle here"
-        image={FILLER}
-    />  },
+      title="Sign Language Interpreter"
+      subtitle="Tap to learn more"
+      image={SIGN_LANGUAGE_INTERPETER}
+    />,
+    description: "description2",
+  },
   {
     renderItem: ({ item }) => <Card
-        title="ENT"
-        subtitle="Insert subtitle here"
-        image={FILLER}
-    />  },
+      title="Ear-Nose-Throat Doctor"
+      subtitle="Tap to learn more"
+      image={ENT}
+    />,
+    description: "description3",
+  },
   {
     renderItem: ({ item }) => <Card
-        title="Audiologist"
-        subtitle="Insert subtitle here"
-        image={FILLER}
-    />  },
-    {
+      title="Audiologist"
+      subtitle="Tap to learn more"
+      image={AUDIOLOGIST}
+    />,
+    description: "description4",
+  },
+  {
     renderItem: ({ item }) => <Card
-        title="Speech Language Pathologist"
-        subtitle="Insert subtitle here"
-        image={FILLER}
-    />  }
+      title="Speech Language Pathologist"
+      subtitle="Tap to learn more"
+      image={SLP}
+    />,
+    description: "description5",
+  }
 ];

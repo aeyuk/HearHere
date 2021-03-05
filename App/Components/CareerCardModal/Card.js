@@ -2,9 +2,6 @@ import React from "react";
 
 import { View, Text, Image } from "react-native";
 
-import { FILLER } from '../../Assets/Images/Images.js'
-
-
 const Card = (props) => (
   <View>
     <Image
@@ -29,17 +26,17 @@ const Card = (props) => (
           color: "rgba(0, 0, 0, 0.5)"
         }}
       >
-        {props.title}
+      {props.subtitle}
       </Text>
       <Text
         style={{
-          fontSize: 26,
+          fontSize: 22,
           maxWidth: "60%",
           fontWeight: "bold",
           color: "rgb(51, 51, 51)"
         }}
-      >
-        {props.subtitle}
+        >
+        {props.title}
       </Text>
     </View>
   </View>

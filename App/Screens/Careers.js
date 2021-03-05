@@ -11,18 +11,8 @@ export default class Careers extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>
-          Careers with Ears!
-        </Text>
-        <Text style={styles.subtitle}>
-          There are so many jobs for people interested in hearing loss.
-          Click on each person to learn what they do:
-        </Text>
-        <View>
-          <CardModal />
-        </View>
+        <CardModal />
       </View>
-      // <CardModal/>
     );
   }
 }
