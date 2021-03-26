@@ -5,7 +5,7 @@ import { Image } from 'react-native';
 import {  
   HAPPY, 
   LISTENING, 
-  CONFUSED, 
+  SAD, 
   TOO_LOUD1,
   TOO_LOUD2,
   TOO_LOUD3
@@ -35,7 +35,8 @@ class SoundRecorder extends Component {
       audioPath: AudioUtils.DocumentDirectoryPath + '/test.aac',
       hasPermission: undefined,
       currentMetering: 0.0,
-      elephant: HAPPY
+      elephant: HAPPY,
+      message: "Record a sound and see how loud it is!"
     };
 
     prepareRecordingPath(audioPath){
@@ -58,7 +59,7 @@ class SoundRecorder extends Component {
         this.prepareRecordingPath(this.state.audioPath);
 
         AudioRecorder.onProgress = (data) => {
-          this.setState({currentMetering: Math.floor(data.currentMetering + 45)});
+          this.setState({currentMetering: Math.floor(data.currentMetering + 80)});
           this.setState({currentTime: Math.floor(data.currentTime)});
           console.log("Current metering: ", this.state.currentMetering);
         };
@@ -119,7 +120,7 @@ class SoundRecorder extends Component {
         this.prepareRecordingPath(this.state.audioPath);
       }
 
-      this.setState({recording: true, elephant: LISTENING});
+      this.setState({recording: true, elephant: LISTENING, message: "Listening!"});
 
       try {
         const filePath = await AudioRecorder.startRecording();
@@ -132,16 +133,35 @@ class SoundRecorder extends Component {
       this.setState({ finished: didSucceed });
       console.log(`Finished recording of duration ${this.state.currentTime} seconds at path: ${filePath} and size of ${fileSize || 0} bytes`);
       // console.log(`Decibel level: ${this.state.decibels}`);
+      this.setElephantAndMessage()
+    }
+
+    async setElephantAndMessage() {
+      var elephant = HAPPY;
+      var message = "This level of sound is safe for your hearing!"
+      if (this.state.currentMetering >= 71 && this.state.currentMetering < 85) {
+        elephant = SAD
+        message = "Sound at this level can damage your hearing after a few hours of listening."
+      } else if (this.state.currentMetering >= 85 && this.state.currentMetering < 100) {
+        elephant = TOO_LOUD1
+        message = "Sound at this level can damage your hearing after a few minutes of listening."
+      } else if (this.state.currentMetering >= 100 && this.state.currentMetering < 110) {
+        elephant = TOO_LOUD2
+        message = "Sound at this level can damage your hearing after a few seconds of listening."
+      } else if (this.state.currentMetering >= 110) {
+        elephant = TOO_LOUD3
+        message = "Sound at this level is damaging to your ears for any amount of time!!"
+      }
+      await this.setState({elephant: elephant, message: message});
     }
 
     render() {
 
       return (
         <View style={styles.container}>
-          {/* Change this to message eventually */}
-          <Text style={styles.progressText}>{this.state.currentTime}s</Text> 
           {this._renderButton("RECORD", () => {this._record()}, this.state.recording )}
           {this._renderButton("STOP", () => {this._stop()} )}
+          <Text style={styles.message}>{this.state.message}</Text> 
           <Image style={styles.image} source={this.state.elephant}/>
         </View>
       );
@@ -152,14 +172,18 @@ class SoundRecorder extends Component {
   var styles = StyleSheet.create({
     container: {
       flex: 1,
-      justifyContent: 'flex-start',
       alignItems: 'center',
-      position: 'absolute'
+      justifyContent: 'center'
+      // bottom: '-30%'
+      // position: 'absolute'
     },
-    progressText: {
-      padding: 45,
-      fontSize: 50,
-      color: "#000"
+    message: {
+      fontSize: 20,
+      color: "#000000",
+      fontWeight: 'bold',
+      margin: 10,
+      flexWrap: 'wrap',
+      textAlign: 'center'
     },
     activeButton: {
       paddingTop: 20,
@@ -179,10 +203,11 @@ class SoundRecorder extends Component {
     },
     image: {
       resizeMode: 'contain',
-      height: '75%'
+      height: '50%',
+      // position: 'absolute',
       // width: '100%',
       // height: '100%',
-      // bottom: '-5%',
+      bottom: '-5%'
       // position: 'absolute',
       // paddingTop: '10%'
     }

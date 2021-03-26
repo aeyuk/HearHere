@@ -18,9 +18,6 @@ export default class Listen extends Component {
         <Text style={styles.subtitle}>
           Listening to loud sounds for too long can damage your ears.
         </Text>
-        <Text style={styles.title}>
-          Record a sound and see how loud it is:
-        </Text>
         <SoundRecorder/>
       </View>
     );
@@ -33,18 +30,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
+    paddingTop: '30%'
   },
   title: {
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
     fontWeight: 'bold',
-    top: '-30%'
+    // top: '-30%'
   },
   subtitle: {
     fontSize: 18,
     textAlign: 'center',
     margin: 10,
-    top: '-30%'
+    paddingBottom: 20
+    // top: '-30%'
   }
 });
