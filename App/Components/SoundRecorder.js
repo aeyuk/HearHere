@@ -1,5 +1,16 @@
 import React, {Component} from 'react';
 import { Icon } from 'react-native-elements';
+import { Image } from 'react-native';
+
+import {  
+  HAPPY, 
+  LISTENING, 
+  CONFUSED, 
+  TOO_LOUD1,
+  TOO_LOUD2,
+  TOO_LOUD3
+} from '../Assets/Images/Images.js'
+
 
 import {
   AppRegistry,
@@ -23,7 +34,8 @@ class SoundRecorder extends Component {
       finished: false,
       audioPath: AudioUtils.DocumentDirectoryPath + '/test.aac',
       hasPermission: undefined,
-      decibels: 0.0,
+      currentMetering: 0.0,
+      elephant: HAPPY
     };
 
     prepareRecordingPath(audioPath){
@@ -33,7 +45,7 @@ class SoundRecorder extends Component {
         AudioQuality: "Low",
         AudioEncoding: "aac",
         AudioEncodingBitRate: 32000,
-        MeteringEnabled: "true"
+        MeteringEnabled: true
       });
     }
 
@@ -46,9 +58,9 @@ class SoundRecorder extends Component {
         this.prepareRecordingPath(this.state.audioPath);
 
         AudioRecorder.onProgress = (data) => {
-          this.setState({decibels: Math.floor(data.currentMetering)/20});
+          this.setState({currentMetering: Math.floor(data.currentMetering + 45)});
           this.setState({currentTime: Math.floor(data.currentTime)});
-          // console.log(Math.floor(data.currentMetering) + 160, Math.floor(data.currentPeakMetering) + 160);
+          console.log("Current metering: ", this.state.currentMetering);
         };
 
         AudioRecorder.onFinished = (data) => {
@@ -107,7 +119,7 @@ class SoundRecorder extends Component {
         this.prepareRecordingPath(this.state.audioPath);
       }
 
-      this.setState({recording: true});
+      this.setState({recording: true, elephant: LISTENING});
 
       try {
         const filePath = await AudioRecorder.startRecording();
@@ -126,26 +138,23 @@ class SoundRecorder extends Component {
 
       return (
         <View style={styles.container}>
-          <View style={styles.controls}>
-            <Text style={styles.progressText}>{this.state.decibels} dBs</Text>
-            {this._renderButton("RECORD", () => {this._record()}, this.state.recording )}
-            {this._renderButton("STOP", () => {this._stop()} )}
-            <Text style={styles.progressText}>{this.state.currentTime}s</Text>
-          </View>
+          {/* Change this to message eventually */}
+          <Text style={styles.progressText}>{this.state.currentTime}s</Text> 
+          {this._renderButton("RECORD", () => {this._record()}, this.state.recording )}
+          {this._renderButton("STOP", () => {this._stop()} )}
+          <Image style={styles.image} source={this.state.elephant}/>
         </View>
       );
     }
   }
 
+
   var styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: "#FFFFFF",
-    },
-    controls: {
-      justifyContent: 'center',
+      justifyContent: 'flex-start',
       alignItems: 'center',
-      flex: 1,
+      position: 'absolute'
     },
     progressText: {
       padding: 45,
@@ -166,8 +175,17 @@ class SoundRecorder extends Component {
       width: 80,
       height: 80,
       borderRadius: 80/2,
-      backgroundColor: "#38B6E1"    },
-
+      backgroundColor: "#38B6E1"    
+    },
+    image: {
+      resizeMode: 'contain',
+      height: '75%'
+      // width: '100%',
+      // height: '100%',
+      // bottom: '-5%',
+      // position: 'absolute',
+      // paddingTop: '10%'
+    }
   });
 
 export default SoundRecorder;
