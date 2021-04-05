@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import { Icon } from 'react-native-elements';
 import { Image } from 'react-native';
+import { SlideUpImage } from './SlideUpImage.js';
 
 import {  
   HAPPY, 
   LISTENING, 
-  SAD, 
   TOO_LOUD1,
   TOO_LOUD2,
   TOO_LOUD3
@@ -136,23 +136,20 @@ class SoundRecorder extends Component {
       this.setElephantAndMessage()
     }
 
-    async setElephantAndMessage() {
+    setElephantAndMessage() {
       var elephant = HAPPY;
       var message = "This level of sound is safe for your hearing!"
       if (this.state.currentMetering >= 71 && this.state.currentMetering < 85) {
-        elephant = SAD
+        elephant = TOO_LOUD1
         message = "Sound at this level can damage your hearing after a few hours of listening."
       } else if (this.state.currentMetering >= 85 && this.state.currentMetering < 100) {
-        elephant = TOO_LOUD1
-        message = "Sound at this level can damage your hearing after a few minutes of listening."
-      } else if (this.state.currentMetering >= 100 && this.state.currentMetering < 110) {
         elephant = TOO_LOUD2
-        message = "Sound at this level can damage your hearing after a few seconds of listening."
-      } else if (this.state.currentMetering >= 110) {
+        message = "Sound at this level can damage your hearing after a few minutes of listening."
+      } else if (this.state.currentMetering >= 100) {
         elephant = TOO_LOUD3
         message = "Sound at this level is damaging to your ears for any amount of time!!"
-      }
-      await this.setState({elephant: elephant, message: message});
+      } 
+      this.setState({elephant: elephant, message: message});
     }
 
     render() {
@@ -162,7 +159,9 @@ class SoundRecorder extends Component {
           {this._renderButton("RECORD", () => {this._record()}, this.state.recording )}
           {this._renderButton("STOP", () => {this._stop()} )}
           <Text style={styles.message}>{this.state.message}</Text> 
-          <Image style={styles.image} source={this.state.elephant}/>
+          <SlideUpImage elephant={this.state.elephant} 
+                        recording={this.state.recording} 
+                        stoppedRecording={this.state.stoppedRecording}/>
         </View>
       );
     }
@@ -201,16 +200,6 @@ class SoundRecorder extends Component {
       borderRadius: 80/2,
       backgroundColor: "#38B6E1"    
     },
-    image: {
-      resizeMode: 'contain',
-      height: '50%',
-      // position: 'absolute',
-      // width: '100%',
-      // height: '100%',
-      bottom: '-5%'
-      // position: 'absolute',
-      // paddingTop: '10%'
-    }
   });
 
 export default SoundRecorder;
