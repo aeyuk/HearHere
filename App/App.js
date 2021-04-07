@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
-import Navigator from './router';
+import Navigator from './TabNavigator';
 
 export default class App extends Component {
     render() {

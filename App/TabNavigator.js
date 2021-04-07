@@ -1,6 +1,8 @@
 import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+
+import { NavigationContainer, useNavigationState } from '@react-navigation/native';
 import { Icon } from 'react-native-elements';
 
 import Game from './Screens/Game.js';
@@ -8,7 +10,17 @@ import Listen from './Screens/Listen.js';
 import Home from './Screens/Home.js';
 import Careers from './Screens/Careers.js'
 
+import {
+    INDIGO,
+    BLUE,
+    GREEN,
+    ORANGE
+} from './Assets/Color.js'
+
+const colors = [INDIGO, BLUE, GREEN, ORANGE];
+
 const Tab = createMaterialBottomTabNavigator();
+
 
 function Navigator() {
     return (
@@ -17,6 +29,21 @@ function Navigator() {
                 initialRouteName="Home"
                 activeColor="white"
                 shifting="true"
+                tabBarPosition="bottom"
+                // style={({ route }) => ({
+                //     backgroundColor: () => {
+                //         let color
+                //         if (route.name === 'Home')
+                //             color = INDIGO
+                //         else if (route.name === 'Listen')
+                //             color = BLUE
+                //         else if (route.name === 'Game')
+                //             color = GREEN
+                //         else
+                //             color = ORANGE
+                //         return color
+                //     }
+                // })}
             >
                 <Tab.Screen 
                     name="Home"
@@ -24,7 +51,7 @@ function Navigator() {
                     options={{
                         tabBarLabel: "Home",
                         tabBarIcon: () => <Icon name="home-outline" type="ionicon" size={24} color='#FFFFFF' />,
-                        tabBarColor: '#3D64EE'
+                        tabBarColor: INDIGO
                     }}
                 />
                 <Tab.Screen 
@@ -33,7 +60,7 @@ function Navigator() {
                     options={{
                         tabBarLabel: "Listen",
                         tabBarIcon: () => <Icon name="ear-outline" type="ionicon" size={24} color='#FFFFFF' />,
-                        tabBarColor: '#38B6E1'
+                        tabBarColor: BLUE
                     }}
                 />
                 <Tab.Screen 
@@ -42,7 +69,7 @@ function Navigator() {
                     options={{
                         tabBarLabel: "Game",
                         tabBarIcon: () => <Icon name="game-controller-outline" type="ionicon" size={24} color='#FFFFFF' />,
-                        tabBarColor: '#75BA03'
+                        tabBarColor: GREEN
                     }}
                 />                
                 <Tab.Screen 
@@ -51,12 +78,13 @@ function Navigator() {
                     options={{
                         tabBarLabel: "Careers",
                         tabBarIcon: () => <Icon name="briefcase-outline" type="ionicon" size={24} color='#FFFFFF' />,
-                        tabBarColor: '#FF4C00'
+                        tabBarColor: ORANGE
                     }}
                 />            
             </Tab.Navigator>
         </NavigationContainer>
     );
 }
+
 
 export default Navigator;

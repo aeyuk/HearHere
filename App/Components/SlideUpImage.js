@@ -15,7 +15,7 @@ export const SlideUpImage = ( props ) => {
         Animated.sequence([
             Animated.timing(animatedValue, {
                 toValue: 1,
-                duration: 400,
+                duration: 100,
                 useNativeDriver: true,
                 easing: Easing.Bounce
             }),

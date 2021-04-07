@@ -2,7 +2,7 @@
 import React from "react";
 import CardList from "react-native-card-animated-modal";
 
-import { Dimensions, Text, View } from "react-native";
+import { Dimensions, Text, View, StyleSheet } from "react-native";
 
 import CARDS from "./CareerCards";
 
@@ -14,9 +14,9 @@ export default class CardModal extends React.Component {
       <CardList
         listProps={{
           ListHeaderComponent: () => (
-            <View style={{ padding: 16, paddingBottom: 0 }}>
-              <Text style={{ fontSize: 28, fontWeight: "bold", textAlign: "center" }}>All Ears for These Careers!</Text>
-              <Text style={{fontSize: 18, textAlign: 'left', top: '20%', marginBottom: '10%'}}>
+            <View style={styles.container}>
+              <Text style={styles.title}>All Ears for These Careers!</Text>
+              <Text style={styles.subtitle}>
                 There are so many jobs for people interested in hearing loss.
                 Click on each person to learn what they do:
               </Text>
@@ -40,3 +40,22 @@ export default class CardModal extends React.Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 16,
+    paddingBottom: 0
+  },
+  title: {
+    fontSize: 28, 
+    fontWeight: "900", 
+    textAlign: "center",
+    fontFamily: "Podkova"
+  },
+  subtitle: {
+    fontSize: 18, 
+    textAlign: 'left', 
+    top: '20%', 
+    marginBottom: '10%'
+  }
+});

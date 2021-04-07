@@ -33,10 +33,11 @@ const styles = StyleSheet.create({
     paddingTop: '30%'
   },
   title: {
-    fontSize: 20,
+    fontSize: 22,
     textAlign: 'center',
     margin: 10,
-    fontWeight: 'bold',
+    fontWeight: '900',
+    fontFamily: "Podkova"
     // top: '-30%'
   },
   subtitle: {

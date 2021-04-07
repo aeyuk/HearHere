@@ -36,7 +36,7 @@ class SoundRecorder extends Component {
       hasPermission: undefined,
       currentMetering: 0.0,
       elephant: HAPPY,
-      message: "Record a sound and see how loud it is!"
+      message: "Record a sound. See how loud it is!"
     };
 
     prepareRecordingPath(audioPath){
@@ -177,12 +177,13 @@ class SoundRecorder extends Component {
       // position: 'absolute'
     },
     message: {
-      fontSize: 20,
+      fontSize: 22,
       color: "#000000",
-      fontWeight: 'bold',
+      fontWeight: '900',
       margin: 10,
       flexWrap: 'wrap',
-      textAlign: 'center'
+      textAlign: 'center',
+      fontFamily: "Podkova"
     },
     activeButton: {
       paddingTop: 20,

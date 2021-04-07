@@ -6,20 +6,20 @@ import {
   Image
 } from 'react-native';
 
+import { LOGO } from '../Assets/Images/Images.js'
+
+
 export default class Home extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.title}>
-          Hear Here!
-        </Text>
-        <Image
-          style={{
-            width: "100%",
-            height: "50%"
-          }}
-          source={require('../Assets/Images/Filler_Image.png')}/>
-      </View>
+        <View style={styles.container}>
+          <Text style={styles.title}>
+          </Text>
+          <Image
+            style={{ width: "100%", height: "40%", resizeMode: "contain"}}
+            source={LOGO}
+          />
+        </View>
     );
   }
 }
@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   title: {
+    fontFamily: 'Podkova',
     fontSize: 18,
     textAlign: 'center',
     margin: 10,

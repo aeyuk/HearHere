@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
-    fontWeight: 'bold',
+    fontWeight: '900',
     position: 'relative',
     top: '-30%'
   },
@@ -36,7 +36,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: 'center',
     margin: 10,
-    // position: 'relative',
     top: '-30%'
   }
 });
