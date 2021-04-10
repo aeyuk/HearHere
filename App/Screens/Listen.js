@@ -16,7 +16,7 @@ export default class Listen extends Component {
           It's important to protect your ears!
         </Text>
         <Text style={styles.subtitle}>
-          Listening to loud sounds for too long can damage your ears.
+          Listening to loud sounds for too long can cause hearing loss.
         </Text>
         <SoundRecorder/>
       </View>
@@ -33,18 +33,17 @@ const styles = StyleSheet.create({
     paddingTop: '30%'
   },
   title: {
-    fontSize: 22,
+    fontSize: 28,
     textAlign: 'center',
-    margin: 10,
     fontWeight: '900',
-    fontFamily: "Podkova"
-    // top: '-30%'
+    fontFamily: "Podkova",
+    marginHorizontal: 20
   },
   subtitle: {
     fontSize: 18,
     textAlign: 'center',
     margin: 10,
+    marginHorizontal: 20,
     paddingBottom: 20
-    // top: '-30%'
   }
 });

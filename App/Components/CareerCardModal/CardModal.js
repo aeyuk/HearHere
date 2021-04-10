@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     fontSize: 28, 
     fontWeight: "900", 
     textAlign: "center",
-    fontFamily: "Podkova"
+    fontFamily: "Podkova",
   },
   subtitle: {
     fontSize: 18, 

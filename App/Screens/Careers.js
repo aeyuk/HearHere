@@ -24,18 +24,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  title: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-    fontWeight: '900',
-    position: 'relative',
-    top: '-30%'
-  },
-  subtitle: {
-    fontSize: 18,
-    textAlign: 'center',
-    margin: 10,
-    top: '-30%'
-  }
 });

@@ -44,10 +44,5 @@
   "jest": {
     "preset": "react-native"
   },
-  "private": true,
-  "rnpm": {
-    "assets": [
-      "./App/Assets/Fonts/"
-    ]
-  }
+  "private": true
 }
