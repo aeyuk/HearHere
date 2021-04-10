@@ -2,13 +2,13 @@ import React from 'react';
 import { Dimensions } from 'react-native';
 import Card from './Card';
 
-import {  FILLER, 
-          SOUND_ENGINEER, 
-          SIGN_LANGUAGE_INTERPETER, 
-          ENT,
-          AUDIOLOGIST,
-          SLP
-        } from '../../Assets/Images/Images.js'
+import { 
+  SOUND_ENGINEER, 
+  SIGN_LANGUAGE_INTERPETER, 
+  ENT,
+  AUDIOLOGIST,
+  SLP
+} from '../../Assets/Images/Images.js'
 
 
 export default [

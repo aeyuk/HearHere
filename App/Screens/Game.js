@@ -4,8 +4,20 @@ import {
   Text,
   View,
   Image,
-  Button
+  TouchableOpacity,
+  Animated
 } from 'react-native';
+
+import { ImageLoader } from '../Components/ImageLoader.js'
+
+import {
+  INDIGO,
+  BLUE,
+  GREEN,
+  ORANGE
+} from '../Assets/Color.js'
+
+import { Icon } from 'react-native-elements';
 
 import {
   EAR_DIAGRAM0,
@@ -18,31 +30,83 @@ import {
 } from '../Assets/Images/Images.js'
 
 const gameSlides = [
-  EAR_DIAGRAM0,
-  EAR_DIAGRAM1,
-  EAR_DIAGRAM2,
-  EAR_DIAGRAM3,
-  EAR_DIAGRAM4,
-  EAR_DIAGRAM5,
-  EAR_DIAGRAM6
+  {
+    picture: EAR_DIAGRAM0,
+    text: "This is an ear 1",
+    A: "A",
+    B: "B",
+    C: "C",
+    D: "D",
+    answer: "XXX"
+  },
+  {
+    picture: EAR_DIAGRAM1,
+    text: "This is an ear 2",
+    A: "A",
+    B: "B",
+    C: "C",
+    D: "D",
+    answer: "XXX"
+  },
+  {
+    picture: EAR_DIAGRAM2,
+    text: "This is an ear 3",
+    A: "A",
+    B: "B",
+    C: "C",
+    D: "D",
+    answer: "XXX"
+  },
+  {
+    picture: EAR_DIAGRAM3,
+    text: "This is an ear 4",
+    A: "A",
+    B: "B",
+    C: "C",
+    D: "D",
+    answer: "XXX"
+  },
+  {
+    picture: EAR_DIAGRAM4,
+    text: "This is an ear 5",
+    A: "A",
+    B: "B",
+    C: "C",
+    D: "D",
+    answer: "XXX"
+  },
+  {
+    picture: EAR_DIAGRAM5,
+    text: "This is an ear 6",
+    A: "A",
+    B: "B",
+    C: "C",
+    D: "D",
+    answer: "XXX"
+  }
 ]
 
 export default class Game extends Component {
   state = { 
       index: 0,
-      gameSlide: EAR_DIAGRAM0
+      picture: EAR_DIAGRAM0,
+      text: "Let's get started!",
+      disabled: true,
+      score: 0,
+
   }
 
   handleForward(event) {
-    this.setState({index: this.state.index == 6 ? 0 : this.state.index + 1})
-    console.log(this.state.index)
-    this.setState({gameSlide: gameSlides[this.state.index]})
+    this.setState({index: this.state.index == 5 ? 0 : this.state.index + 1})
+    this.setState({picture: gameSlides[this.state.index].picture})
+    this.setState({text: gameSlides[this.state.index].text})
   }
 
   handleBackward(event) {
-    this.setState({index: this.state.index == 0 ? 6 : this.state.index - 1})
-    console.log(this.state.index)
-    this.setState({gameSlide: gameSlides[this.state.index]})
+    this.setState({index: this.state.index == 0 ? 5 : this.state.index - 1})
+    this.setState({picture: gameSlides[this.state.index].picture})
+    this.setState({text: gameSlides[this.state.index].text})
+
   }
 
   render() {
@@ -51,20 +115,32 @@ export default class Game extends Component {
         <Text style={styles.title}>
           Track the music note's path through the ear!
         </Text>
-        <Image
-            style={{ width: "100%", resizeMode: "contain"}}
-            source={this.state.gameSlide}
+        <ImageLoader
+            source={this.state.picture}
         />
-        <Button 
-          style={{backgroundColor: 'green'}} 
-          onPress={(e) => this.handleForward(e)}
-          title="Forward">
-        </Button>
-        <Button 
-          style={{backgroundColor: 'red'}} 
-          onPress={(e) => this.handleBackward(e)}
-          title="Backward">
-        </Button>
+          <Text style={styles.prompt}>{this.state.text}</Text>
+          <View style={styles.answers}>
+            <TouchableOpacity style={styles.answer} color={INDIGO} disabled={this.state.disabled}>
+              <Text style={styles.answerText}>{gameSlides[this.state.index].A}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.answer} color={INDIGO} disabled={this.state.disabled}>
+              <Text style={styles.answerText}>{gameSlides[this.state.index].B}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.answer} color={INDIGO} disabled={this.state.disabled}>
+              <Text style={styles.answerText}>{gameSlides[this.state.index].C}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.answer} color={INDIGO} disabled={this.state.disabled}>
+              <Text style={styles.answerText}>{gameSlides[this.state.index].D}</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.answers}>
+            <TouchableOpacity onPress={(e) => this.handleBackward(e)}>
+              <Icon name="arrow-left" size={50} color={BLUE}/>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={(e) => this.handleForward(e)}>
+              <Icon name="arrow-right" size={50} color={BLUE}/>
+            </TouchableOpacity>
+          </View>
       </View>
     );
   }
@@ -75,21 +151,38 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    margin: 15,
+    top: 10
   },
   title: {
     fontSize: 28,
     textAlign: 'center',
-    // margin: 10,
     fontWeight: '900',
     fontFamily: "Podkova",
     paddingTop: '10%'
-    // position: 'absolute',
-    // top: '10%'
   },
-  subtitle: {
+  prompt: {
     fontSize: 18,
     textAlign: 'center',
     margin: 10,
+    fontWeight: 'bold',
+    paddingBottom: 50
+  },
+  answers: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  answer: {
+    backgroundColor: INDIGO,
+    textDecorationColor: '#FFFFFF',
+    width: '23%',
+    height: 40,
+    alignItems: 'center',
+    margin: 3,
+    justifyContent: 'center'
+  },
+  answerText: {
+    color: '#FFFFFF'
   }
 });

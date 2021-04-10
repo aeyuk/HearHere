@@ -15,7 +15,7 @@ const Card = (props) => (
       style={{
         width: "100%",
         padding: 16,
-        backgroundColor: "rgb(255, 255, 255)"
+        backgroundColor: "#FFFFFF"
       }}
     >
       <Text
@@ -23,7 +23,7 @@ const Card = (props) => (
           fontSize: 12,
           marginBottom: 5,
           fontWeight: "bold",
-          color: "rgba(0, 0, 0, 0.5)",
+          color: "#A9A9A9",
         }}
       >
       {props.subtitle}
@@ -33,7 +33,7 @@ const Card = (props) => (
           fontSize: 22,
           maxWidth: "100%",
           fontWeight: "bold",
-          color: "rgb(51, 51, 51)",
+          color: "#000000",
           fontFamily: "Podkova"
         }}
         >

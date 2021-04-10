@@ -17,8 +17,6 @@ import {
     ORANGE
 } from './Assets/Color.js'
 
-const colors = [INDIGO, BLUE, GREEN, ORANGE];
-
 const Tab = createMaterialBottomTabNavigator();
 
 
