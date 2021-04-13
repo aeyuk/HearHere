@@ -159,9 +159,7 @@ class SoundRecorder extends Component {
           {this._renderButton("RECORD", () => {this._record()}, this.state.recording )}
           {this._renderButton("STOP", () => {this._stop()} )}
           <Text style={styles.message}>{this.state.message}</Text> 
-          <SlideUpImage elephant={this.state.elephant} 
-                        recording={this.state.recording} 
-                        stoppedRecording={this.state.stoppedRecording}/>
+          <SlideUpImage elephant={this.state.elephant}/>
         </View>
       );
     }

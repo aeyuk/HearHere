@@ -15,14 +15,12 @@ export const SlideUpImage = ( props ) => {
         Animated.sequence([
             Animated.timing(animatedValue, {
                 toValue: 1,
-                duration: 100,
+                duration: 200,
                 useNativeDriver: true,
-                easing: Easing.Bounce
             }),
             Animated.timing(animatedValue, {
                 toValue: 0,
                 duration: 400,
-                easing: Easing.Bounce,
                 useNativeDriver: true
             })
         ],).start()

@@ -20,6 +20,7 @@ export const EAR_DIAGRAM2 = require('./Ear/EarDiagram2.png');
 export const EAR_DIAGRAM3 = require('./Ear/EarDiagram3.png');
 export const EAR_DIAGRAM4 = require('./Ear/EarDiagram4.png');
 export const EAR_DIAGRAM5 = require('./Ear/EarDiagram5.png');
+export const EAR_DIAGRAM6 = require('./Ear/EarDiagram6.png');
 
 
 

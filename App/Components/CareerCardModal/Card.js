@@ -23,7 +23,7 @@ const Card = (props) => (
           fontSize: 12,
           marginBottom: 5,
           fontWeight: "bold",
-          color: "#A9A9A9",
+          color: "#808080",
         }}
       >
       {props.subtitle}
