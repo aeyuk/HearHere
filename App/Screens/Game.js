@@ -41,69 +41,69 @@ import {
 const gameSlides = [
   {
     picture: EAR_DIAGRAM1,
-    text: "This is an ear 1",
-    A: "A",
-    B: "B",
-    C: "C",
-    D: "D",
-    answer: "A",
-    correctResponse: "You're right!",
-    incorrectResponse: "You're wrong!"
+    text: "What is the part of the ear on the outside of our heads that helps collect sounds?",
+    A: "Pinna",
+    B: "Cochlea",
+    C: "Anvil",
+    D: "Ear Canal",
+    answer: "Pinna",
+    correctResponse: "That's right! The pinna helps filter sound waves into the ear so we can hear more things.",
+    incorrectResponse: "Incorrect! The correct answer is \"Pinna\"."
   },
   {
     picture: EAR_DIAGRAM2,
-    text: "This is an ear 2",
-    A: "A",
-    B: "B",
-    C: "C",
-    D: "D",
-    answer: "C",
-    correctResponse: "You're right!",
-    incorrectResponse: "You're wrong!"
+    text: "What do you call the tube in the outer ear that leads to the eardrum?",
+    A: "The hearing duct",
+    B: "The sound pipe",
+    C: "The ear canal",
+    D: "The noise tunnel",
+    answer: "The ear canal",
+    correctResponse: "You're right! The pinna, ear canal, and ear drum make up the outer ear.",
+    incorrectResponse: "Oops! The correct answer is \"The ear canal\"."
   },
   {
     picture: EAR_DIAGRAM3,
-    text: "This is an ear 3",
-    A: "A",
-    B: "B",
-    C: "C",
-    D: "D",
-    answer: "B",
-    correctResponse: "You're right!",
-    incorrectResponse: "You're wrong!"
+    text: "The eardrum _______ when sound waves hit it.",
+    A: "Opens",
+    B: "Vibrates",
+    C: "Spins",
+    D: "Shrinks",
+    answer: "Vibrates",
+    correctResponse: "You're right! These vibrations are sent to the tiny bones of the middle ear.",
+    incorrectResponse: "Whoops! The correct answer is \"Vibrates\"."
   },
   {
     picture: EAR_DIAGRAM4,
-    text: "This is an ear 4",
-    A: "A",
-    B: "B",
-    C: "C",
-    D: "D",
-    answer: "A",
-    correctResponse: "You're right!",
-    incorrectResponse: "You're wrong!"
+    text: "Which of these is NOT one of the three small bones of the middle ear?",
+    A: "Wrench",
+    B: "Hammer",
+    C: "Anvil",
+    D: "Stirrup",
+    answer: "Wrench",
+    correctResponse: "Correct! The hammer, anvil, and stirrup send sound vibrations to the inner ear.",
+    incorrectResponse: "Oh no! The correct answer is \"Wrench\"."
   },
   {
     picture: EAR_DIAGRAM5,
-    text: "This is an ear 5",
-    A: "A",
-    B: "B",
-    C: "C",
-    D: "D",
-    answer: "D",
-    correctResponse: "You're right!",
-    incorrectResponse: "You're wrong!!"
+    text: "What is the name of the snail-shaped organ that changes sound vibrations into electric signals for the brain?",
+    A: "Timpanic",
+    B: "Auditoro",
+    C: "Spiralea",
+    D: "Cochlea",
+    answer: "Cochlea",
+    correctResponse: "Yes! The cochlea has little hairs that vibrate with sound waves in the fluid of the inner ear. These create the electrical signals!",
+    incorrectResponse: "Incorrect! The correct answer is \"Cochlea\"."
   },
   {
     picture: EAR_DIAGRAM6,
-    text: "This is an ear 6",
-    A: "A",
-    B: "B",
-    C: "C",
-    D: "D",
-    answer: "D",
-    correctResponse: "You're right!!",
-    incorrectResponse: "You're wrong!"
+    text: "The inner ear also helps with ______.",
+    A: "Eating",
+    B: "Sleeping",
+    C: "Smelling",
+    D: "Balance",
+    answer: "Balance",
+    correctResponse: "That's right! Those little hairs in the cochlea act like sensors for balance!",
+    incorrectResponse: "Almost! The correct answer is \"Balance\"."
   },
 ]
 
@@ -216,7 +216,7 @@ export default class Game extends Component {
           <Text style={styles.title}>
             How well do you know the parts of the human ear?
           </Text>
-          <Text style={styles.prompt}>
+          <Text style={styles.subtitle}>
             Let's play and find out!
           </Text>
           <View>
@@ -234,9 +234,9 @@ export default class Game extends Component {
       return (
         <View style={styles.container}>
           <Text style={styles.title}>
-            You scored: {this.state.score}
+            You scored: {this.state.score} out of 6.
           </Text>
-          <Text style={styles.prompt}>
+          <Text style={styles.subtitle}>
             Play again?
           </Text>
           <View>
@@ -258,7 +258,7 @@ export default class Game extends Component {
           </Text>
           <ImageLoader source={this.state.picture}/>
             <Text style={styles.prompt}>{this.state.text}</Text>
-            <View style={styles.answers}>
+            <View style={styles.answers1}>
               <TouchableOpacity 
                 style={this.responseColor(this.state.A)} 
                 disabled={this.state.answeringDisabled} 
@@ -271,6 +271,8 @@ export default class Game extends Component {
                 onPress={(e) => this.handleAnswer(this.state.B)}>
                   <Text style={styles.answerText}>{this.state.B}</Text>
               </TouchableOpacity>
+            </View>
+            <View style={styles.answers2}>
               <TouchableOpacity 
                 style={this.responseColor(this.state.C)} 
                 disabled={this.state.answeringDisabled} 
@@ -285,8 +287,11 @@ export default class Game extends Component {
               </TouchableOpacity>
             </View>
             <View>
-              <TouchableOpacity /*disabled={this.state.forwardDisabled}*/ onPress={(e) => this.handleForward(e)}>
-                <Icon name="arrow-right" size={75} color={BLUE}/>
+              <TouchableOpacity 
+                disabled={this.state.forwardDisabled} 
+                onPress={(e) => this.handleForward(e)}
+                style={styles.forward}>
+                  <Icon name="arrow-right" size={75} color={BLUE}/>
               </TouchableOpacity>
             </View>
         </View>
@@ -309,28 +314,45 @@ const styles = StyleSheet.create({
     fontWeight: '900',
     fontFamily: "Podkova",
     paddingTop: '10%',
-    margin: 10
+  },
+  subtitle: {
+    fontSize: 18,
+    textAlign: 'center',
+    margin: 10,
+    fontWeight: 'bold',
+    paddingBottom: 80
   },
   prompt: {
     fontSize: 18,
     textAlign: 'center',
     margin: 10,
     fontWeight: 'bold',
-    paddingBottom: 50
+    position: 'absolute',
+    bottom: 180,
   },
-  answers: {
+  answers1: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    justifyContent: 'center',
+    position: 'absolute',
+    bottom: 130,
+  },
+  answers2: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    position: 'absolute',
+    bottom: 80,
   },
   answer: {
     backgroundColor: INDIGO,
     textDecorationColor: '#FFFFFF',
-    width: '23%',
-    height: 40,
     alignItems: 'center',
     margin: 3,
-    justifyContent: 'center'
+    height: 40,
+    justifyContent: 'center',
+    width: '50%',
   },
   answerText: {
     color: '#FFFFFF'
@@ -343,8 +365,10 @@ const styles = StyleSheet.create({
   },
   elephant: {
     position: 'absolute',
-    // top: -1000
     bottom: -40
+  },
+  forward: {
+    paddingTop: 150
   }
 
 });
